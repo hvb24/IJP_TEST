@@ -9,7 +9,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -35,10 +37,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginDTO loginDto){
+    public ResponseEntity<Map<String,String>> login(@RequestBody LoginDTO loginDto){
         System.out.println("inside the auth login"+loginDto);
         String response = authService.login(loginDto);
-        return ResponseEntity.ok(response);
+        Map<String,String> res=new HashMap<>();
+        res.put("token",response);
+        return ResponseEntity.ok(res);
     }
 
     @PostMapping("/roles")
