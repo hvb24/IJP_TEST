@@ -24,7 +24,7 @@ public class CandidateServiceImpl implements CandidateServices {
             if (id == null || id.isEmpty()) {
                 throw new CandidateApiException("Candidate ID is required", HttpStatus.BAD_REQUEST);
             }
-            return candidateRepo.findById(id)
+            return candidateRepo.findByEmail(id)
                     .orElseThrow(() -> new CandidateApiException("Candidate not found with ID: " + id, HttpStatus.NOT_FOUND));
         } catch (CandidateApiException e) {
             throw e;
