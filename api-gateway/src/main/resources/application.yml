@@ -1,0 +1,47 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: AUTH-SERVICE
+          uri: lb://AUTH-SERVICE
+          predicates:
+            - Path=/auth-service/**
+        - id: CANDIDATE-SERVICE
+          uri: lb://CANDIDATE-SERVICE
+          predicates:
+            - Path=/candidate-service/**
+        - id: HR-SERVICE
+          uri: http://localhost
+          predicates:
+            - Path=/hr-service/**
+          filters:
+            - AuthenticationFilter
+        - id: JOB-SERVICE
+          uri: lb://JOB-SERVICE
+          predicates:
+            - Path=/job-service/**
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    hostname: localhost
+
+logging:
+  level:
+    root: INFO
+    com.IJP.api_gateway.CustomLoggingFilter: DEBUG
+  console:
+    enabled: true
