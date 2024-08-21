@@ -14,7 +14,6 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/hr")
-@CrossOrigin(origins = "http://localhost:4000")
 public class HrController {
 
     @Autowired

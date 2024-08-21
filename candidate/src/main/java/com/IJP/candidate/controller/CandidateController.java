@@ -11,7 +11,6 @@ import com.IJP.candidate.payload.ApiResponse;
 
 @RestController
 @RequestMapping("/candidate")
-@CrossOrigin(origins = "http://localhost:4000")
 public class CandidateController {
 
     @Autowired

@@ -35,6 +35,11 @@ public class RequestLoggingFilter implements GlobalFilter, Ordered {
         ServerHttpRequest request = exchange.getRequest();
         logger.info("Request Method: {}, Request URI: {}", request.getMethod(), request.getURI());
 
+        if(request.getURI().toString().contains("/auth-service/api/auth/login")||
+                request.getURI().toString().contains("/auth-service/api/auth/register")){
+            return chain.filter(exchange);
+        }
+
         if (validator.isSecured.test(exchange.getRequest())) {
             //header contains token or not
             if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
